@@ -1,0 +1,22 @@
+{
+    "name": "Remove Stupid",
+
+    "description": "Filter out paragraphs which contain an interval, followed by punctuation.",
+    "version": "1.0",
+    "manifest_version": 3,
+
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": true
+    },
+
+    "content_scripts": [{
+        "css": ["stylesheet.css"],
+        "js": ["filter.js"],
+        "matches": ["<all_urls>"]
+    }],
+
+    "permissions": [
+        "storage"
+    ]
+}
