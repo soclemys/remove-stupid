@@ -8,15 +8,17 @@ init = async () => {
     filterType = await getSettings();
     switch (window.location.hostname) {
         default:
-            let content = document.getElementsByTagName('p');
-            Array.prototype.forEach.call(content, paragraph => {
-                filterElement(paragraph);
-            })
+            window.addEventListener('load', () => {
+                let content = document.getElementsByTagName('p');
+                Array.prototype.forEach.call(content, paragraph => {
+                    filterElement(paragraph);
+                })
+            });
     }
 };
 
 filterElement = element => {
-    if (element.innerHTML.match(' [\.,!?]')) {
+    if (element.innerText.match('( [\.,!?])')) {
         switch (filterType) {
             case 'full':
                 element.remove();
