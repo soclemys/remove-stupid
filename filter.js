@@ -1,4 +1,3 @@
-
 getSettings = async () => {
     return new Promise(resolve => {
         chrome.storage.sync.get('settings', result => { resolve(result.filterType); });

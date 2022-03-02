@@ -13,3 +13,5 @@ The filter can be set to:
 - [ ] Fix mode
 - [ ] Domain-specific content recognition
 - [ ] Custom censorship message
+- [ ] Acceptable options UI
+- [ ] Icon
