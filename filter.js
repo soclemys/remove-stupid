@@ -1,18 +1,36 @@
-window.onload = () => {
-    chrome.storage.sync.get(['filterAction'], function(result) {
-        let filterAction = result.filterAction;
-        let paragraphs = document.getElementsByTagName('p');
-        Array.prototype.forEach.call(paragraphs, paragraph => {
-            if (paragraph.innerHTML.match(' [\.,!?]')) {
-                if (filterAction == 'full') {
-                    paragraph.remove();
-                } else if (filterAction == 'hard') {
-                    paragraph.innerHTML = 'Content removed due to stupidity.';
-                    paragraph.classList.add('retard-overwrite');
-                } else {
-                    paragraph.classList.add('retard-diminish');
-                }
-            }
-        })
+
+getSettings = async () => {
+    return new Promise(resolve => {
+        chrome.storage.sync.get('settings', result => { resolve(result.filterType); });
     });
 }
+
+init = async () => {
+    filterType = await getSettings();
+    switch (window.location.hostname) {
+        default:
+            let content = document.getElementsByTagName('p');
+            Array.prototype.forEach.call(content, paragraph => {
+                filterElement(paragraph);
+            })
+    }
+};
+
+filterElement = element => {
+    if (element.innerHTML.match(' [\.,!?]')) {
+        switch (filterType) {
+            case 'full':
+                element.remove();
+                break;
+            case 'hard':
+                element.innerHTML = 'Content removed due to stupidity.';
+                element.classList.add('retard-overwrite');
+                break;
+            case 'soft':
+            default:
+                element.classList.add('retard-diminish');
+        }
+    }
+}
+
+init();

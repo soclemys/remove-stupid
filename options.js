@@ -1,15 +1,17 @@
-select = document.getElementById('filter_action');
+select = document.getElementById('filter_type');
 
 select.onchange = () => {
     chrome.storage.sync.set({
-        filterAction: select.value
+        settings: {
+            filterType: select.value,
+        }
     });
 }
 
 window.onload = () => {
     chrome.storage.sync.get({
-        filterAction: 'Soft',
-    }, function(data) {
-        select.value = data.filterAction;
+        filterType: 'soft',
+    }, data => {
+        select.value = data.filterType;
     });
 }
