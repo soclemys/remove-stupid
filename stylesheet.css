@@ -1,8 +1,8 @@
-.retard-diminish {
+.stupid-diminish {
     text-decoration: line-through;
-    font-size: 0.7em;
+    font-size: 0.8em;
 }
 
-.retard-overwrite {
+.stupid-overwrite {
     font-style: oblique;
 }

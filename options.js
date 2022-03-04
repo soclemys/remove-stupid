@@ -10,8 +10,10 @@ select.onchange = () => {
 
 window.onload = () => {
     chrome.storage.sync.get({
-        filterType: 'soft',
+        settings: {
+            filterType: 'soft'
+        },
     }, data => {
-        select.value = data.filterType;
+        select.value = data.settings.filterType;
     });
 }
