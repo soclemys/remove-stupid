@@ -10,7 +10,7 @@ The filter can be set to:
 ## Roadmap for 0.1
 
 - [ ] Firefox integration
-- [ ] Fix mode
+- [x] Fix mode
 - [x] [ only base logic ] Domain-specific content recognition
 - [ ] Custom censorship message
 - [ ] Acceptable options UI
