@@ -7,7 +7,7 @@ The filter can be set to:
 * Overwrite matching content, notifying the user of its removal;
 * Discard the content.
 
-## Roadmap for 1.1
+## Roadmap for 0.1
 
 - [ ] Firefox integration
 - [ ] Fix mode

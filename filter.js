@@ -1,10 +1,10 @@
-getSettings = async () => {
+const getSettings = async () => {
     return new Promise(resolve => {
         chrome.storage.sync.get('settings', result => { resolve(result.filterType); });
     });
 }
 
-init = async () => {
+const init = async () => {
     filterType = await getSettings();
     switch (window.location.hostname) {
         default:
@@ -17,7 +17,7 @@ init = async () => {
     }
 };
 
-filterElement = element => {
+const filterElement = element => {
     if (element.innerText.match('( [\.,!?])')) {
         switch (filterType) {
             case 'full':
