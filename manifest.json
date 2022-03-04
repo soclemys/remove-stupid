@@ -2,7 +2,7 @@
     "name": "Remove Stupid",
 
     "description": "Filter out paragraphs which contain an interval, followed by punctuation.",
-    "version": "1.0",
+    "version": "0.0",
     "manifest_version": 3,
 
     "options_ui": {
