@@ -1,11 +1,12 @@
 # Remove Stupid
 
-A chrome extension that filters paragraphs containing an interval, followed by punctuation.
+A chrome extension that filters illiteracy.
 
-The filter can be set to:
-* Make matching content small and apply strike-through;
-* Overwrite matching content, notifying the user of its removal;
-* Discard the content.
+The filter can:
+* Fix matching content;
+* Apply strike-through to matching content;
+* Overwrite matching content;
+* Discard matching content.
 
 ## Roadmap for 0.1
 
