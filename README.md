@@ -11,7 +11,7 @@ The filter can be set to:
 
 - [ ] Firefox integration
 - [x] Fix mode
-- [x] [ only base logic ] Domain-specific content recognition
-- [ ] Custom censorship message
-- [ ] Acceptable options UI
+- [x] Domain-specific content recognition
+- [x] Custom censorship message
+- [x] Acceptable options UI
 - [ ] Icon

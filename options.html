@@ -1,36 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stupid Remover Options</title>
+    <title>Remove Stupid - Options</title>
     <style>
-        body {
+        #content {
+            margin: auto;
             text-align: center;
+        }
+        h1 {
+            font-size: 1.4em;
+        }
+        table {
+            margin: 0 auto;
+        }
+        textarea {
+            resize: none;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
 
-    Filter type:
-    <select id="filter_type">
-        <option value="fix">Fix</option>
-        <option value="soft">Diminish</option>
-        <option value="hard">Overwrite</option>
-        <option value="full">Discard</option>
-    </select>
-    <br>
+    <div id="content">
 
-    <fieldset>
-        <legend>Matches</legend>
-        <div>
-            <input type="checkbox" id="interval" name="matches" value="interval">
-            <label for="coding">Interval before punctuation</label>
-        </div>
-        <div>
-            <input type="checkbox" id="excess" name="matches" value="excess">
-            <label for="music">Excessive use of punctuation</label>
-        </div>
-    </fieldset>
+        <h1>Options:</h1>
+
+        <strong>Filter type:</strong>
+        <select id="filter_type">
+            <option value="fix">Fix</option>
+            <option value="soft">Diminish</option>
+            <option value="hard">Overwrite</option>
+            <option value="full">Discard</option>
+        </select>
+        <br><br>
+
+        <table>
+            <thead>
+                <tr>
+                    <th colspan=2>Matches:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="interval" name="matches" value="interval">
+                    </td>
+                    <td>
+                        <label for="coding">Interval before punctuation</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" id="excess" name="matches" value="excess">
+                    </td>
+                    <td>
+                        <label for="music">Excessive use of punctuation</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+        <strong>Censorship string:</strong>
+        <br>
+        <textarea id="censorship_string" rows=2></textarea>
+
+
+    </div>
 
     <script src="options.js"></script>
+
 </body>
 </html>

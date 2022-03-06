@@ -1,5 +1,10 @@
 select = document.getElementById('filter_type');
 select.onchange = () => {
+    textInput.disabled = !(select.value == 'hard');
+    saveSettings();
+}
+textInput = document.getElementById('censorship_string');
+textInput.onchange = () => {
     saveSettings();
 }
 matchCheckboxes = document.getElementsByName('matches');
@@ -19,7 +24,8 @@ const saveSettings = () => {
     chrome.storage.sync.set({
         settings: {
             filterType: select.value,
-            filterMatch: matches
+            filterMatch: matches,
+            censorshipString: textInput.value
         }
     });
 }
@@ -35,5 +41,7 @@ window.onload = () => {
         Array.prototype.forEach.call(matchCheckboxes, checkbox => {
             checkbox.checked = data.settings.filterMatch.includes(checkbox.value);
         })
+        textInput.value = data.settings.censorshipString;
+        textInput.disabled = !(select.value == 'hard');
     });
 }

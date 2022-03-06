@@ -11,19 +11,11 @@ const REGEX = {
     }
 }
 
-let settings;
-
 const getSettings = async () => {
     return new Promise(resolve => {
         chrome.storage.sync.get('settings', result => { resolve(result.settings); });
     });
 }
-
-const init = async () => {
-    settings = await getSettings();
-    let filter = getFilter(settings.filterType, settings.filterMatch, settings.censorshipString);
-    applyFilter(filter);
-};
 
 const applyFilter = filter => {
     switch (window.location.hostname) {
@@ -144,10 +136,17 @@ const getFilter = (filterType, filterMatch, censorshipString) => {
     })();
     let capture = element => {
         if (element.innerText.match(regex)) {
+            console.log('Filtered element: ', element);
             filter(element);
         }
     }
     return capture;
 }
+
+const init = async () => {
+    let settings = await getSettings();
+    let filter = getFilter(settings.filterType, settings.filterMatch, settings.censorshipString);
+    applyFilter(filter);
+};
 
 init();
