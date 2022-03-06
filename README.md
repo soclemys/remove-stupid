@@ -2,7 +2,7 @@
 
 A chrome extension that filters illiteracy.
 
-The can react to:
+The filter can react to:
 * Intervals preceding punctuation;
 * Excessive punctuation.
 
