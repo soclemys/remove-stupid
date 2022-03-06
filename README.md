@@ -2,6 +2,10 @@
 
 A chrome extension that filters illiteracy.
 
+The filter can be applied for:
+* Interval preceding punctuation;
+* Excessive punctuation.
+
 The filter can:
 * Fix matching content;
 * Apply strike-through to matching content;
