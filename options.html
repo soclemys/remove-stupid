@@ -10,16 +10,27 @@
 </head>
 <body>
 
+    Filter type:
+    <select id="filter_type">
+        <option value="fix">Fix</option>
+        <option value="soft">Diminish</option>
+        <option value="hard">Overwrite</option>
+        <option value="full">Discard</option>
+    </select>
+    <br>
 
-<label for="filter_type">Filter type:</label>
-<select id="filter_type">
-    <option value="fix">Fix</option>
-    <option value="soft">Diminish</option>
-    <option value="hard">Overwrite</option>
-    <option value="full">Discard</option>
-</select>
+    <fieldset>
+        <legend>Matches</legend>
+        <div>
+            <input type="checkbox" id="interval" name="matches" value="interval">
+            <label for="coding">Interval before punctuation</label>
+        </div>
+        <div>
+            <input type="checkbox" id="excess" name="matches" value="excess">
+            <label for="music">Excessive use of punctuation</label>
+        </div>
+    </fieldset>
 
-
-<script src="options.js"></script>
+    <script src="options.js"></script>
 </body>
 </html>

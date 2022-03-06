@@ -1,3 +1,16 @@
+const REGEX = {
+    interval: {
+        match: ' (?=[\.,!?])',
+        fix: ''
+    },
+    excess: {
+        match: '[\.,!?]{4,}',
+        fix: match => {
+            return match.substr(0, 3);
+        }
+    }
+}
+
 let settings;
 
 const getSettings = async () => {
@@ -8,10 +21,11 @@ const getSettings = async () => {
 
 const init = async () => {
     settings = await getSettings();
-    applyFilters();
+    let filter = getFilter(settings.filterType, settings.filterMatch, settings.censorshipString);
+    applyFilter(filter);
 };
 
-const applyFilters = () => {
+const applyFilter = filter => {
     switch (window.location.hostname) {
 
         case 'novini.bg':
@@ -22,7 +36,7 @@ const applyFilters = () => {
                 Array.prototype.push.apply(content, articleParagraphs);
                 Array.prototype.push.apply(content, comments);
                 Array.prototype.forEach.call(content, element => {
-                    filterElement(element);
+                    filter(element);
                 })
             });
             break;
@@ -44,7 +58,7 @@ const applyFilters = () => {
                                 mutation.addedNodes.length &&
                                 mutation.addedNodes[0].tagName === 'YTD-COMMENT-THREAD-RENDERER'
                             ) {
-                                filterElement(mutation.addedNodes[0].querySelector('yt-formatted-string#content-text'));
+                                filter(mutation.addedNodes[0].querySelector('yt-formatted-string#content-text'));
                             }
                         });
                         newCommentObserver.observe(contentDiv, observerSettings);
@@ -61,7 +75,7 @@ const applyFilters = () => {
                         let chatItems = chatWindow.document.getElementById('item-offset').childNodes[1];
                         chatItems.childNodes.forEach(element => {
                             if (element.tagName === 'YT-LIVE-CHAT-TEXT-MESSAGE-RENDERER') {
-                                filterElement(element.querySelector('#message'));
+                                filter(element.querySelector('#message'));
                             }
                         })
                         let chatObserver = new MutationObserver(mutations => {
@@ -71,7 +85,7 @@ const applyFilters = () => {
                                 mutation.addedNodes.length &&
                                 mutation.addedNodes[0].tagName === 'YT-FORMATTED-STRING'
                             ) {
-                                filterElement(mutation.addedNodes[0].querySelector('#message'));
+                                filter(mutation.addedNodes[0].querySelector('#message'));
                             }
                         });
                         chatObserver.observe(chatItems, observerSettings);
@@ -87,31 +101,53 @@ const applyFilters = () => {
             window.addEventListener('load', () => {
                 let content = document.getElementsByTagName('p');
                 Array.prototype.forEach.call(content, paragraph => {
-                    filterElement(paragraph);
+                    filter(paragraph);
                 })
             });
 
     }
 }
 
-const filterElement = element => {
-    if (element.innerText.match(' (?=[\.,!?])')) {
-        switch (settings.filterType) {
+const getFilter = (filterType, filterMatch, censorshipString) => {
+    let regex = '';
+    let expressions = [];
+    filterMatch.forEach(stupid => {
+        regex += '|' + REGEX[stupid].match;
+        expressions.push({
+            expression: new RegExp(REGEX[stupid].match, 'g'),
+            fix: REGEX[stupid].fix
+        });
+    })
+    regex = regex.substring(1);
+    let filter = (() => {
+        switch (filterType) {
             case 'full':
-                element.remove();
-                break;
+                return element => {
+                    element.remove();
+                }
             case 'hard':
-                element.innerHTML = 'Content removed due to stupidity.';
-                element.style.fontStyle = 'oblique';
-                break;
+                return element => {
+                    element.innerHTML = censorshipString;
+                }
             case 'fix':
-                element.innerText = element.innerText.replaceAll(/ (?=[\.,!?])/ig, '');
-                break;
+                return element => {
+                    expressions.forEach(expression => {
+                        element.innerText = element.innerText.replaceAll(expression.expression, expression.fix);
+                    })
+                }
             case 'soft':
             default:
-                element.style.textDecoration = 'line-through';
+                return element => {
+                    element.style.textDecoration = 'line-through';
+                }
+        }
+    })();
+    let capture = element => {
+        if (element.innerText.match(regex)) {
+            filter(element);
         }
     }
+    return capture;
 }
 
 init();
